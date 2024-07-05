@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { ExpensesList } from "./expensesList/ExpensesList";
 import Card from "../UI/card/Card";
 import ExpensesFilter from "./expensesFilter/ExpensesFilter";
-import {Chart} from "../chart/Chart"
+import { Chart } from "../chart/Chart";
 
-export const Expenses = ({ expenses }) => {
+export const Expenses = ({
+  expenses,
+  showModalDelete,
+  openModalHandler,
+  closeModalHandler,
+  deleteExpenseHandler
+}) => {
   const [filteredByYear, setFiltredByYear] = useState("2023");
 
   const handleSelected = (event) => {
@@ -18,8 +24,14 @@ export const Expenses = ({ expenses }) => {
   return (
     <Card>
       <ExpensesFilter value={filteredByYear} onChange={handleSelected} />
-      <Chart expenses={ filteredExpenses}/>
-      <ExpensesList expenses={filteredExpenses} />
+      <Chart expenses={filteredExpenses} />
+      <ExpensesList
+        expenses={filteredExpenses}
+        showModalDelete={showModalDelete}
+        openModalHandler={openModalHandler}
+        closeModalHandler={closeModalHandler}
+        deleteExpenseHandler={deleteExpenseHandler}
+      />
     </Card>
   );
 };

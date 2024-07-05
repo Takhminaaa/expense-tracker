@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../UI/button/Button";
+import ConfirmModal from "../UI/modal/ConfirmModal";
 
-const Header = ({ isLogin, onLogout }) => {
+const Header = ({
+  isLogin,
+  onLogout,
+  onUsers,
+  onShowModal,
+  showModal,
+  closeModal,
+}) => {
   return (
     <StyledHeader>
       <h2>Expense Tracker</h2>
@@ -10,8 +18,16 @@ const Header = ({ isLogin, onLogout }) => {
       {isLogin && (
         <ContainerButton>
           <Button>Expense</Button>
-          <Button>Users</Button>
-          <Button onClick={onLogout}>Logaut</Button>
+          <Button onClick={onUsers}>Users</Button>
+          <Button onClick={onShowModal}>Logaut</Button>
+
+          {showModal && (
+            <ConfirmModal isOpen={showModal} onClose={closeModal}>
+              <h2>Вы точно хотите выйти?</h2>
+              <Button onClick={onLogout}>Да </Button>
+              <Button onClick={closeModal}>Нет </Button>
+            </ConfirmModal>
+          )}
         </ContainerButton>
       )}
     </StyledHeader>
@@ -25,7 +41,7 @@ const ContainerButton = styled("div")`
   justify-content: end;
   align-items: center;
   gap: 20px;
-`; 
+`;
 
 const StyledHeader = styled.header`
   width: 100%;
